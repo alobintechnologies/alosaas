@@ -1,6 +1,6 @@
 # LaraSaaS Multitenancy Framework
 
-AloSaaS framework includes basic resources that helps in developing a cloud application. AloSaaS made with [Laravel](http://laravel.com) so it composes of all good features of laravel framework.
+LaraSaaS framework includes basic resources that helps in developing a cloud application. LaraSaaS made with [Laravel](http://laravel.com) so it composes of all good features of laravel framework.
 
 ## Main Functionalities
 
