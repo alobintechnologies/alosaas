@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
+
+    public function url()
+    {
+      return 'accounts/'.$this->subdomain;
+    }
+
     public function memberships()
     {
       return $this->hasMany('App\Membership');
@@ -26,13 +32,9 @@ class Account extends Model
       return $this->ownerMembership->user;
     }
 
-    public function url()
-    {
-      return 'accounts/'.$this->subdomain;
-    }
-
     public function invitations()
     {
       return $this->hasMany('App\Invitation');
     }
+
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use App\Account;
+use AccountUtil;
 use App\Membership;
 use Validator;
 
@@ -46,7 +47,7 @@ class AccountController extends Controller
         $request->session()->flash('success', 'Account created successfully...');
       }
 
-      return redirect('home');
+      return redirect('dashboard');
     }
 
     /**
@@ -64,10 +65,11 @@ class AccountController extends Controller
     public function switchAccount($subdomain, Request $request)
     {
       $user = $request->user();
-      $currentAccount = $user->accounts()->where('subdomain', $subdomain)->first();
+      $currentAccount = Account::where('subdomain', $subdomain)->first();
+      $membership = $user->memberships()->where('account_id', $currentAccount->id)->first();
 
-      if($currentAccount) {
-        $request->session()->put('currentAccount', $currentAccount);
+      if($membership) {
+        AccountUtil::current($currentAccount);
         return redirect('dashboard');
       }
       return redirect('/');
@@ -76,7 +78,7 @@ class AccountController extends Controller
     public function dashboard(Request $request)
     {
       //$request->session()->put('currentAccount', $account);
-      $currentAccount = $request->session()->get('currentAccount');
+      $currentAccount = AccountUtil::current();
       return view('account.dashboard')->with('currentAccount', $currentAccount);
     }
 
